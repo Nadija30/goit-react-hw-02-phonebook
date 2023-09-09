@@ -1,10 +1,9 @@
 import { Component } from 'react';
-import { ContactForm } from './ContactForm/ContactForm';
+import { ContactForm } from '../ContactForm/ContactForm';
 import { nanoid } from 'nanoid';
-import { Filter } from './Filter/Filter';
-import { ContactList } from './ContactList/ContactList';
-// import { Notify } from 'notiflix/build/notiflix-notify-aio';
-// import css from './App.module.css';
+import { Filter } from '../Filter/Filter';
+import { ContactList } from '../ContactList/ContactList';
+import css from './App.module.css';
 
 export class App extends Component {
   state = {
@@ -52,7 +51,7 @@ export class App extends Component {
       contact.name.toLowerCase().includes(filter.toLowerCase())
     );
     return (
-      <div>
+      <div className={css.container}>
         <h1>Phonebook</h1>
         <ContactForm onSubmit={this.onSubmitForm} />
         <h2>Contacts</h2>
