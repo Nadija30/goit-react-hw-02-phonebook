@@ -19,7 +19,7 @@ export class App extends Component {
   onSubmitForm = data => {
     console.log(data);
     const isAlreadyExist = this.state.contacts.find(
-      el => el.name === data.name
+      el => el.name.toLocaleLowerCase() === data.name.toLocaleLowerCase()
     );
     if (isAlreadyExist) return alert('Already Exist');
 
@@ -31,25 +31,27 @@ export class App extends Component {
       contacts: [newContacts, ...prev.contacts],
     }));
   };
-  isNameNew = (contacts, newObj) => {
-    return contacts.find(
-      ({ name }) => name.toLowerCase() === newObj.name.toLowerCase()
-    );
-  };
 
   onChangeFilter = ({ target: { value } }) => {
     this.setState({ filter: value });
   };
+
   deleteContact = id => {
     this.setState(prev => ({
       contacts: prev.contacts.filter(contact => contact.id !== id),
     }));
   };
-  render() {
+
+  getFilteresContacs = () => {
     const { contacts, filter } = this.state;
-    const filterContacts = contacts.filter(contact =>
+    return contacts.filter(contact =>
       contact.name.toLowerCase().includes(filter.toLowerCase())
     );
+  };
+
+  render() {
+    const { filter } = this.state;
+    const filterContacts = this.getFilteresContacs();
     return (
       <div className={css.container}>
         <h1>Phonebook</h1>
